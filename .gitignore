@@ -1,0 +1,46 @@
+# Build directories
+build/
+dist/
+*.o
+*.a
+*.so
+*.dylib
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Binaries
+mesh_server
+*.exe
+*.out
+
+# Logs
+*.log
+/tmp/
+
+# Crow header library (included separately)
+crow_include/
+
+# Archives
+*.tar.gz
+*.zip
+
+# Static build artifacts
+static/node_modules/
+static/dist/
