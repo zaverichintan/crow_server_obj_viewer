@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesh Viewer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f0f1e; color: #fff; }
+
+        #container {
+            display: flex;
+            height: 100vh;
+        }
+
+        #viewport {
+            flex: 1;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            position: relative;
+        }
+
+        canvas { display: block; width: 100%; height: 100%; }
+
+        #controls {
+            width: 300px;
+            padding: 20px;
+            background: #111;
+            border-left: 1px solid #333;
+            overflow-y: auto;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #0f6;
+        }
+
+        .control-value {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #0f6;
+        }
+
+        #stats {
+            margin-top: 30px;
+            padding: 15px;
+            background: #1a1a2e;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        #stats p {
+            margin: 5px 0;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #444;
+            border-top-color: #0f6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="viewport"></div>
+        <div id="controls">
+            <h2>Model</h2>
+            <div class="control-group">
+                <label>Select OBJ</label>
+                <select id="model-select" style="width: 100%; padding: 8px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px; font-size: 13px; cursor: pointer;">
+                    <option value="">Default Cube</option>
+                </select>
+            </div>
+
+            <h2>Transform Controls</h2>
+
+            <div class="control-group">
+                <label>Rotate X (°)</label>
+                <input type="range" id="rotateX" min="-180" max="180" value="0" step="1">
+                <div class="control-value"><span id="rotateX-val">0</span>°</div>
+            </div>
+
+            <div class="control-group">
+                <label>Rotate Y (°)</label>
+                <input type="range" id="rotateY" min="-180" max="180" value="0" step="1">
+                <div class="control-value"><span id="rotateY-val">0</span>°</div>
+            </div>
+
+            <div class="control-group">
+                <label>Rotate Z (°)</label>
+                <input type="range" id="rotateZ" min="-180" max="180" value="0" step="1">
+                <div class="control-value"><span id="rotateZ-val">0</span>°</div>
+            </div>
+
+            <h2>Position Controls</h2>
+
+            <div class="control-group">
+                <label>Translate X</label>
+                <input type="number" id="translateX" value="0" step="0.1">
+            </div>
+
+            <div class="control-group">
+                <label>Translate Y</label>
+                <input type="number" id="translateY" value="0" step="0.1">
+            </div>
+
+            <div class="control-group">
+                <label>Translate Z</label>
+                <input type="number" id="translateZ" value="0" step="0.1">
+            </div>
+
+            <h2>Scale Control</h2>
+
+            <div class="control-group">
+                <label>Scale</label>
+                <input type="range" id="scale" min="0.1" max="5" value="1" step="0.05">
+                <div class="control-value"><span id="scale-val">1.0</span>x</div>
+            </div>
+
+            <div id="stats">
+                <p><span class="spinner"></span> Loading mesh...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/dist/app.js"></script>
+</body>
+</html>

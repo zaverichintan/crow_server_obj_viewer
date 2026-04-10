@@ -9,6 +9,17 @@ find_package(Threads REQUIRED)
 add_executable(mesh_server src/main.cpp)
 target_link_libraries(mesh_server PRIVATE Threads::Threads)
 
+# Include Crow headers
+target_include_directories(mesh_server PRIVATE ${CMAKE_SOURCE_DIR}/crow_include/include)
+
+# Copy public directory to build output directory
+add_custom_command(TARGET mesh_server POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/public
+        $<TARGET_FILE_DIR:mesh_server>/public
+    COMMENT "Copying public files..."
+)
+
 # Copy static directory to build output directory
 add_custom_command(TARGET mesh_server POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
